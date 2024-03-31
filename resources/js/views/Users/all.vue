@@ -1,0 +1,54 @@
+<template>
+    <VRow>
+        <VCol cols="12">
+            <VCard>
+                <VTable class="text-no-wrap text-center">
+                    <thead>
+                    <tr>
+                        <th scope="">#</th>
+                        <th scope="">Name</th>
+                        <th scope="">Email</th>
+                        <th scope="">Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="user in response" :key="user.id">
+                        <td class="w-0">{{ user.id }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td><VBtn @click="$router.push('users/setting/'+user.id)">Edit</VBtn></td>
+                    </tr>
+                    </tbody>
+                </VTable>
+            </VCard>
+        </VCol>
+    </VRow>
+</template>
+
+<script>
+import axios from "axios";
+
+console.log(window.location.href)
+export default {
+    name: "UsersList",
+    data() {
+        return {
+            response: [],
+        };
+    },
+    methods: {
+        getUsers() {
+            axios.get('/api/administrator/users')
+                .then((response) => {
+                    this.response = response.data.users;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+    },
+    created() {
+        this.getUsers();
+    },
+};
+</script>

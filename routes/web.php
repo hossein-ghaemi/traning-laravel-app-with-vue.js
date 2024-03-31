@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::prefix('api')
+    ->middleware('api')
+    ->namespace('api')
+    ->group(base_path('routes/api.php'));
+
+
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
 
 Route::get('{any?}', function() {
     return view('application');

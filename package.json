@@ -19,10 +19,16 @@
         "vue": "^3.4.21"
     },
     "dependencies": {
+        "@vitejs/plugin-vue-jsx": "^3.1.0",
+        "@vueuse/core": "^10.9.0",
         "laravel-vue-i18n": "^2.7.6",
         "pinia": "^2.1.7",
+        "unplugin-auto-import": "^0.17.5",
+        "unplugin-vue-components": "^0.26.0",
+        "vite-plugin-vuetify": "^2.0.3",
         "vue-router": "^4.3.0",
         "vue3-apexcharts": "^1.5.2",
-        "vue3-perfect-scrollbar": "^1.6.1"
+        "vue3-perfect-scrollbar": "^1.6.1",
+        "vuetify": "^3.5.13"
     }
 }
