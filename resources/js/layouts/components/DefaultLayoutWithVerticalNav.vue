@@ -16,6 +16,7 @@ const vuetifyTheme = useTheme()
 const upgradeBanner = computed(() => {
     return vuetifyTheme.global.name.value === 'light' ? upgradeBannerLight : upgradeBannerDark
 })
+const routePrefix = '/dashboard';
 </script>
 
 <template>
@@ -80,14 +81,14 @@ const upgradeBanner = computed(() => {
                 :item="{
           title: 'Account Settings',
           icon: 'mdi-account-cog-outline',
-          to: '/account-settings',
+          to: routePrefix+'/account-settings',
         }"
             />
             <VerticalNavLink
                 :item="{
           title: 'Users',
           icon: 'mdi-account-cog-outline',
-          to: '/users',
+          to: routePrefix+'/users',
         }"
             />
 
@@ -129,35 +130,35 @@ const upgradeBanner = computed(() => {
                 :item="{
           title: 'Typography',
           icon: 'mdi-alpha-t-box-outline',
-          to: '/typography',
+          to: routePrefix+'/typography',
         }"
             />
             <VerticalNavLink
                 :item="{
           title: 'Icons',
           icon: 'bx-show',
-          to: '/icons',
+          to: routePrefix+'/icons',
         }"
             />
             <VerticalNavLink
                 :item="{
           title: 'Cards',
           icon: 'bx-credit-card',
-          to: '/cards',
+          to: routePrefix+'/cards',
         }"
             />
             <VerticalNavLink
                 :item="{
           title: 'Tables',
           icon: 'bx-table',
-          to: '/tables',
+          to: routePrefix+'/tables',
         }"
             />
             <VerticalNavLink
                 :item="{
           title: 'Form Layouts',
           icon: 'mdi-form-select',
-          to: '/form-layouts',
+          to: routePrefix+'/form-layouts',
         }"
             />
         </template>
