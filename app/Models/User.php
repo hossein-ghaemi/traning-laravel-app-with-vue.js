@@ -7,21 +7,29 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Support\Str; // Add this line to import the Str class
+use Illuminate\Support\Str;
+
+// Add this line to import the Str class
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'fName',
+        'lName',
+        'age',
+        'role',
         'email',
+        'phoneNumber',
         'password',
     ];
+    protected $appends = ['roles'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,6 +53,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
     public function createToken($name, array $abilities = ['*'])
     {
         return $this->tokens()->create([
@@ -53,4 +62,15 @@ class User extends Authenticatable
             'abilities' => $abilities,
         ]);
     }
+
+    public function getRolesAttribute()
+    {
+        return $this->roles()->pluck('name', 'id')->toArray();
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
+    }
+
 }

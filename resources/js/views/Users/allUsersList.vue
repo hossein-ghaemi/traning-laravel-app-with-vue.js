@@ -5,10 +5,10 @@
                 <VTable class="text-no-wrap text-center">
                     <thead>
                     <tr>
-                        <th scope="">#</th>
-                        <th scope="">Name</th>
-                        <th scope="">Email</th>
-                        <th scope="">Operation</th>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Operation</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -17,7 +17,7 @@
                         <td>{{ user.name }}</td>
                         <td>{{ user.email }}</td>
                         <td>
-                            <router-link :to="{ name: 'user.profile', params: { id: user.id } }">Edit</router-link>
+                            <router-link :to="{ name: 'user.profile', params: { id: user.id } }"><VBtn>Edit</VBtn></router-link>
                         </td>
                     </tr>
                     </tbody>
