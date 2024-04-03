@@ -1,6 +1,6 @@
 <script setup>
 import {useRoute} from 'vue-router'
-import Users from './../views/Users/all.vue'
+import Users from '../views/Users/allUsersList.vue'
 const route = useRoute()
 const activeTab = ref(route.params.tab)
 

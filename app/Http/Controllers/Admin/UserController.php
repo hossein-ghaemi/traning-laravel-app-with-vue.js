@@ -11,4 +11,8 @@ class UserController extends Controller
     public function getUserList(Request $request){
         return json_encode(['users'=>User::all()]);
     }
+
+    public function loadUserProfile($id){
+        var_dump($id);
+    }
 }

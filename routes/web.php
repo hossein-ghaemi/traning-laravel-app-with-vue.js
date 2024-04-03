@@ -18,8 +18,6 @@ Route::prefix('api')
     ->group(base_path('routes/api.php'));
 
 
-Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
-
 Route::get('{any?}', function() {
     return view('application');
 })->where('any', '.*');

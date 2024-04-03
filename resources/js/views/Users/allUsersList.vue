@@ -16,7 +16,9 @@
                         <td class="w-0">{{ user.id }}</td>
                         <td>{{ user.name }}</td>
                         <td>{{ user.email }}</td>
-                        <td><VBtn @click="$router.push('users/setting/'+user.id)">Edit</VBtn></td>
+                        <td>
+                            <router-link :to="{ name: 'user.profile', params: { id: user.id } }">Edit</router-link>
+                        </td>
                     </tr>
                     </tbody>
                 </VTable>
@@ -28,7 +30,6 @@
 <script>
 import axios from "axios";
 
-console.log(window.location.href)
 export default {
     name: "UsersList",
     data() {
