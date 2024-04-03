@@ -13,6 +13,6 @@ class UserController extends Controller
     }
 
     public function loadUserProfile($id){
-        var_dump($id);
+        return json_encode(['user'=>User::find($id)]);
     }
 }

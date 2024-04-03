@@ -5,12 +5,10 @@ const router = createRouter({
         path: '/dashboard', component: () => import('../layouts/default.vue'), children: [{
             path: '', component: () => import('../pages/dashboard.vue'),
         }, {
-            path: 'users', component: () => import('../pages/users.vue'), children: [{
-                path: ':id/setting', //
-                component: () => import('../pages/user-setting.vue'), props: true, name: 'user.profile'
-            },]
+            path: 'users', component: () => import('../pages/users.vue'), children: []
         }, {
-            path: 'account-settings', component: () => import('../pages/account-settings.vue'),
+            path: '/user/:id/setting',
+            component: () => import('../pages/user-setting.vue'), props: true, name: 'user.profile'
         }, {
             path: 'typography', component: () => import('../pages/typography.vue'),
         }, {
