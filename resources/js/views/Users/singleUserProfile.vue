@@ -1,41 +1,90 @@
 <template>
-    <VCard>
-        <VCardTitle class="text-2xl font-weight-bold">
-            {{ this.response.name }}
-        </VCardTitle>
-        <VRow class="pa-6">
-            <VCol cols="6">
-                <VTextField
-                    v-model="this.response.name"
-                    autofocus
-                    :value="this.response.name"
-                    label="Name"
-                    type="text"
-                />
-            </VCol>
-            <VCol cols="6">
-                <VTextField
-                    v-model="this.response.email"
-                    autofocus
-                    :value="this.response.email"
-                    label="Email"
-                    type="text"
-                />
-            </VCol>
-            <VCol cols="6">
-                <VSelect
-                    v-model="this.response.role"
-                    autofocus
-                    :items="this.roles"
-                    item-value="id"
-                    item-title="name"
-                    multiple
-                    label="Roles"
-                    type="text"
-                />
-            </VCol>
-        </VRow>
-    </VCard>
+    <form @submit.prevent="submitForm">
+        <VCard>
+            <VAlert class="rounded-b-0" v-if="this.alert.message" :type="this.alert.type">{{ this.alert.message }}
+            </VAlert>
+
+            <VCardTitle class="text-2xl font-weight-bold">
+                {{ this.response.name }}
+            </VCardTitle>
+            <VRow class="pa-6">
+                <VCol cols="12">
+                    <VImg class="" :src="this.imageUrl" width="200"/>
+                    <br>
+                    <VFileInput
+                        v-model="selectedFile"
+                        :label="'Upload Profile Picture'"
+                        accept="image/*"
+                        @change="onFileChanged"
+                    />
+                </VCol>
+                <VCol cols="6">
+                    <VTextField
+                        v-model="this.response.id"
+                        autofocus
+                        :value="this.response.id"
+                        label="ID"
+                        disabled
+                        readonly
+                        type="rea"
+                        hidden="hidden"
+                    />
+                </VCol>
+                <VCol cols="6">
+                    <VTextField
+                        v-model="this.response.fName"
+                        autofocus
+                        :value="this.response.fName"
+                        label="Last Name"
+                        type="text"
+                    />
+                </VCol>
+                <VCol cols="6">
+                    <VTextField
+                        v-model="this.response.lName"
+                        autofocus
+                        :value="this.response.lName"
+                        label="Last Name"
+                        type="text"
+                    />
+                </VCol>
+                <VCol cols="6">
+                    <VTextField
+                        v-model="this.response.email"
+                        autofocus
+                        :value="this.response.email"
+                        label="Email"
+                        type="text"
+                    />
+                </VCol>
+                <VCol cols="6">
+                    <VTextField
+                        v-model="this.response.phoneNumber"
+                        autofocus
+                        :value="this.response.phoneNumber"
+                        label="Phone Number"
+                        type="text"
+                    />
+                </VCol>
+                <VCol cols="6">
+                    <VSelect
+                        v-model="this.selectedRoles"
+                        autofocus
+                        :items="this.roles"
+                        item-value="id"
+                        item-title="name"
+                        multiple
+                        label="Roles"
+                        type="text"
+                    />
+                </VCol>
+
+            </VRow>
+            <VCardActions class="float-end">
+                <VBtn type="submit" color="primary">Save</VBtn>
+            </VCardActions>
+        </VCard>
+    </form>
 </template>
 
 <script>
@@ -49,10 +98,11 @@ export default {
     data() {
         return {
             response: [],
-            roles: [
-
-            ]
-
+            roles: [],
+            selectedRoles: [],
+            selectedFile: null,
+            imageUrl: '',
+            alert: {message: '', type: ''}
         };
     },
     methods: {
@@ -60,24 +110,55 @@ export default {
             axios.get('/api/administrator/users/' + this.$route.params.id)
                 .then((response) => {
                     this.response = response.data.user;
-                    console.log(this.response)
+                    if (this.response.info && this.response.info.profile !== '') {
+                        this.imageUrl = this.response.info.profile;
+                    }
+                    this.selectedRoles = response.data.user.roles;
                 })
                 .catch((error) => {
                     console.error(error);
                 });
         },
         getRoles() {
-            axios.get('/api/administrator/roles/get' )
+            axios.get('/api/administrator/roles/get')
                 .then((response) => {
-                    response.data.roles.forEach(item=>
-
-                    this.roles.push({'id':item.id,'name':item.name}))
+                    response.data.roles.forEach(item =>
+                        this.roles.push({'id': item.id, 'name': item.name}))
                     this.roles = response.data.roles;
                 })
                 .catch((error) => {
                     console.error(error);
                 });
         },
+        submitForm() {
+            const formData = new FormData();
+            formData.append('profile_picture', this.selectedFile);
+            formData.append('fName', this.response.fName);
+            formData.append('lName', this.response.lName);
+            formData.append('email', this.response.email);
+            formData.append('phoneNumber', this.response.phoneNumber);
+            formData.append('id', this.response.id);
+            formData.append('roles', this.selectedRoles);
+
+            console.log(formData)
+            axios.post('/api/administrator/users/update-profile/' + this.$route.params.id, formData)
+                .then((response) => {
+                    this.alert = {message: response.data.message, type: 'success'};
+                    this.getUser()
+                })
+                .catch(error => {
+                    const errorMessage = error.response?.data?.message || 'Error uploading profile picture!';
+                    this.alert = {message: errorMessage, type: 'error'};
+                });
+        },
+        onFileChanged(event) {
+
+            const file = event.target.files[0];
+            if (file) {
+                this.imageUrl = URL.createObjectURL(file);
+                this.selectedFile = file;
+            }
+        }
     },
     created() {
         this.getUser();

@@ -29,7 +29,7 @@ class User extends Authenticatable
         'phoneNumber',
         'password',
     ];
-    protected $appends = ['roles'];
+    protected $appends = ['roles','info'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -65,7 +65,7 @@ class User extends Authenticatable
 
     public function getRolesAttribute()
     {
-        return $this->roles()->pluck('name', 'id')->toArray();
+        return $this->roles()->pluck( 'id')->toArray();
     }
 
     public function roles()
@@ -73,4 +73,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
     }
 
+
+    public function getInfoAttribute()
+    {
+        return $this->hasOne(UserInfo::class, 'id')->select( 'profile','info')->first();
+    }
 }

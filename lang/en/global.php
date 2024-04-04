@@ -1,4 +1,5 @@
 <?php
 return [
-    'dashboard'=>'Dashboard'
+    'dashboard'=>'Dashboard',
+    'success_attempt'=>'Operation was successful.'
 ];
