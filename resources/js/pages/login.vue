@@ -2,24 +2,6 @@
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue';
 import logo from '@images/logo.svg?raw';
 
-
-// async function login() {
-//     try {
-//         const response = await axios.post('/auth/login', {
-//             email: this.email,
-//             password: this.password,
-//             remember: form.value.remember,
-//
-//         });
-//         localStorage.setItem('token', response.data.token);
-//         alert.value = {message: 'Login successful', type: 'success'};
-//         // Redirect to dashboard or perform other actions
-//     }  catch (error) {
-//         console.error(error);
-//         const errorMessage = error.response?.data?.message || 'An error occurred during login.';
-//         alert.value = {message: errorMessage, type: 'error'};
-//     }
-// }
 </script>
 
 <template>
