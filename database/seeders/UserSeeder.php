@@ -15,12 +15,21 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name' => fake()->name(),
-            'email' => 'jamshid.gh78@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('88222564'),
-            'remember_token' => Str::random(10),
+        User::insert([
+            [
+                'name' => fake()->name(),
+                'email' => 'jamshid.gh78@gmail.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('88222564'),
+                'remember_token' => Str::random(10),
+            ],
+            [
+                'name' => fake()->name(),
+                'email' => 'amirnazari500@gmail.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('amir5000'),
+                'remember_token' => Str::random(10),
+            ],
         ]);
     }
 }
