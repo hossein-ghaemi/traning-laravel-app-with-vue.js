@@ -14,7 +14,7 @@
                     <tbody>
                     <tr v-for="user in response" :key="user.id">
                         <td class="w-0">{{ user.id }}</td>
-                        <td>{{ user.name }}</td>
+                        <td>{{ user.fName }} {{user.lName}}</td>
                         <td>{{ user.email }}</td>
                         <td>
                             <router-link :to="{ name: 'user.profile', params: { id: user.id } }"><VBtn>Edit</VBtn></router-link>

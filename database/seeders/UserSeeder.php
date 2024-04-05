@@ -30,6 +30,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('amir5000'),
                 'remember_token' => Str::random(10),
             ],
+
         ]);
     }
 }
