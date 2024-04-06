@@ -29,7 +29,7 @@ class User extends Authenticatable
         'phoneNumber',
         'password',
     ];
-    protected $appends = ['roles','info', 'profile', 'alerts', 'files'];
+    protected $appends = ['info', 'profile', 'alerts', 'files'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -62,23 +62,6 @@ class User extends Authenticatable
             'abilities' => $abilities,
         ]);
     }
-
-    public function getRolesAttribute()
-    {
-        return $this->roles()->pluck( 'id')->toArray();
-    }
-
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
-    }
-
-
-    public function getInfoAttribute()
-    {
-        return $this->hasOne(UserInfo::class, 'id')->select( 'profile','info')->first();
-    }
-
 
     public function files(){
         return $this->hasMany(File::class,'owner','id');

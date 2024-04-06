@@ -15,8 +15,11 @@ class RoleSeeder extends Seeder
     {
 
         Role::insert([
-            ['name' => 'Admin', 'nickName' => 'ad', 'order' => 10],
-            ['name' => 'Common', 'nickName' => 'cm', 'order' => 20]
+            ['name' => 'User', 'nick_name' => 'user'],
+            ['name' => 'Admin', 'nick_name' => 'admin'],
+            ['name' => 'Manager', 'nick_name' => 'manager'],
+            ['name' => 'Customer', 'nick_name' => 'customer'],
+            ['name' => 'Supplier', 'nick_name' => 'supplier'],
         ]);
 
     }

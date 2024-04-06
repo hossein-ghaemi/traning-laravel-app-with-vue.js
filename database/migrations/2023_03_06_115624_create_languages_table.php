@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('languages', function (Blueprint $table) {
             $table->id();
-            $table->string('name',15)->default('gust');
-            $table->string('nickName',6)->unique()->default('gst')->index();
-            $table->boolean('status')->default(1);
-            $table->bigInteger('order')->unique()->index();
+            $table->string('code', 4)->unique();
+            $table->string('name', 40);
+            $table->boolean('enabled')->default(true);
+            $table->boolean('dir')->default(true);
             $table->timestamps();
         });
+
     }
 
     /**
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('languages');
     }
 };
