@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('languages', function (Blueprint $table) {
+        Schema::create('accesses', function (Blueprint $table) {
             $table->id();
-            $table->string('name',15);
-            $table->string('nickname',2)->index();
-            $table->boolean('status')->default(0)->index();
-            $table->boolean('archive')->default(0)->index();
+            $table->string('route');
+            $table->foreignId('role_id')->references('id')->on('roles')->onDelete('cascade');
+            $table->boolean('def_access')->default(1);
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('languages');
+        Schema::dropIfExists('accesses');
     }
 };

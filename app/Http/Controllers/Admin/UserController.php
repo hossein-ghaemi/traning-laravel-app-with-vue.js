@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FileController;
 use App\Models\User;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
@@ -38,25 +39,26 @@ class UserController extends Controller
             $user->phoneNumber = $phoneNumber;
             $user->roles()->sync($roles);
             $user->save();
-            if ($request->hasFile('profile_picture')) {
-                $file = $request->file('profile_picture');
-                $dateUploaded = now()->format('Y-m-d_H-i-s');
-
-                $fileName = 'profile_' . $userId . '_' . $dateUploaded . '.' . $file->getClientOriginalExtension();
-                $directory = 'profile_pictures/user_' . $userId;
-                Storage::disk('public')->deleteDirectory($directory);
-                Storage::disk('public')->makeDirectory($directory);
-                $path = $file->storeAs('profile_pictures/user_' . $userId, $fileName, 'public');
-                $fullPath = Storage::disk('public')->url($path);
-                $userInfo = UserInfo::where('user_id', $userId)->first();
-                if (!$userInfo) {
-                    $userInfo = new UserInfo();
-                    $userInfo->user_id = $userId;
-                }
-                $userInfo->profile = $fullPath;
-                $userInfo->save();
-                return response()->json(['path' => $fullPath]);
-            }
+            $upload_id = (new FileController())->upload($request, $user->id, 'users', $user->id, 'files/profile/', 'image');
+//            if ($request->hasFile('profile_picture')) {
+//                $file = $request->file('profile_picture');
+//                $dateUploaded = now()->format('Y-m-d_H-i-s');
+//
+//                $fileName = 'profile_' . $userId . '_' . $dateUploaded . '.' . $file->getClientOriginalExtension();
+//                $directory = 'profile_pictures/user_' . $userId;
+//                Storage::disk('public')->deleteDirectory($directory);
+//                Storage::disk('public')->makeDirectory($directory);
+//                $path = $file->storeAs('profile_pictures/user_' . $userId, $fileName, 'public');
+//                $fullPath = Storage::disk('public')->url($path);
+//                $userInfo = UserInfo::where('user_id', $userId)->first();
+//                if (!$userInfo) {
+//                    $userInfo = new UserInfo();
+//                    $userInfo->user_id = $userId;
+//                }
+//                $userInfo->profile = $fullPath;
+//                $userInfo->save();
+//                return response()->json(['path' => $fullPath]);
+//            }
             return json_encode(['message'=>trans('global.success_attempt')]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred while updating profile.'], 500);

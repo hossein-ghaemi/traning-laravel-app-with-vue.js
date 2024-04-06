@@ -9,13 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('user_infos', function (Blueprint $table) {
+        Schema::create('alerts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->text('info')->nullable();
+            $table->foreignId('sender_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('title');
+            $table->text('message');
+            $table->boolean('show')->default(false);
             $table->timestamps();
+
+
         });
     }
 
@@ -24,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_infos');
+        Schema::dropIfExists('alerts');
     }
 };

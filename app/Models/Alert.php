@@ -5,10 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Alert extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'nick_name', 'status'];
-
+    protected $fillable = [
+        'user_id',
+        'sender_id',
+        'title',
+        'message',
+    ];
 }

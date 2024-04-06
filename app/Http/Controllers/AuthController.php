@@ -22,4 +22,7 @@ class AuthController extends Controller
             'email' => [trans('auth.failed')]
         ]);
     }
+
+
+
 }

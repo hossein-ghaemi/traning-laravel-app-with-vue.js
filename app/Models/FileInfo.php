@@ -5,10 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class FileInfo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'nick_name', 'status'];
+    protected $fillable = [
+        'alt',
+        'description',
+        'title',
+    ];
 
 }
