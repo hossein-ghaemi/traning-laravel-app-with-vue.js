@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             [
                 'f_name' => fake()->name(),
                 'l_Name' => fake()->name(),
-                'role_id' => 1,
+                'role_id' => 2,
                 'email' => 'amirnazari500@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('amir5000'),

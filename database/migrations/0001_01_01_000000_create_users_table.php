@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('role_id')->references('id')->on('roles');
             $table->bigInteger('balance')->default(0);
-            $table->string('f_name',60);
-            $table->string('l_name',60);
+            $table->string('f_name',60)->nullable();
+            $table->string('l_name',60)->nullable();
             $table->string('email')->unique();
             $table->string('phone_number')->nullable();
             $table->string('password');

@@ -21,15 +21,15 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'fName',
-        'lName',
-        'age',
-        'role',
+        'f_name',
+        'l_name',
+        'role_id',
         'email',
-        'phoneNumber',
+        'phone_number',
         'password',
     ];
-    protected $appends = ['info', 'profile', 'alerts', 'files'];
+
+    protected $appends = ['info', 'profile', 'alerts'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -63,15 +63,23 @@ class User extends Authenticatable
         ]);
     }
 
+
+    public function getInfoAttribute()
+    {
+        return $this->hasOne(UserInfo::class, 'id')->select( 'info')->first();
+    }
+
+
+
     public function files(){
         return $this->hasMany(File::class,'owner','id');
     }
 
-    public function profile(){
-        return $this->hasOne(File::class,'relation_id','id')->where('table_relation','users')->orderByDesc('id');
+    public function getProfileAttribute(){
+        return $this->hasOne(File::class,'relation_id','id')->where('table_relation','users')->orderByDesc('id')->get();
     }
 
-    public function alerts(){
+    public function getAlertsAttribute(){
         return $this->hasMany(Alert::class,'user_id','id');
     }
 }

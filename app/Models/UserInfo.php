@@ -11,8 +11,4 @@ class UserInfo extends Model
     protected $fillable =['user_id','profile','info'];
 
 
-    private function info()
-    {
-        return $this->hasOne(Role::class, 'user_id');
-    }
 }
