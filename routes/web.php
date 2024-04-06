@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::prefix('api')
-    ->middleware('api')
+    ->middleware(['access', 'api'])
     ->namespace('api')
     ->group(base_path('routes/api.php'));
 
