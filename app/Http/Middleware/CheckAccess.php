@@ -57,7 +57,7 @@ class CheckAccess
             }
 
             return true;
-        } else if(!$exist_access){
+        } else if(!$exist_access && Auth::check()){
 
             $user = Auth::user();
 
@@ -68,6 +68,8 @@ class CheckAccess
                 $user->file_path = $host . '/images/user-icon.png';
             }
 
+            return true;
+        } else if(!$exist_access){
             return true;
         } else {
             return false;
