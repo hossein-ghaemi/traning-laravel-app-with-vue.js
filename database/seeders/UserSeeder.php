@@ -17,14 +17,16 @@ class UserSeeder extends Seeder
     {
         User::insert([
             [
-                'name' => fake()->name(),
+                'fName' => fake()->name(),
+                'lName' => fake()->name(),
                 'email' => 'jamshid.gh78@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('88222564'),
                 'remember_token' => Str::random(10),
             ],
             [
-                'name' => fake()->name(),
+                'fName' => fake()->name(),
+                'lName' => fake()->name(),
                 'email' => 'amirnazari500@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('amir5000'),
