@@ -32,18 +32,18 @@
                 </VCol>
                 <VCol cols="6">
                     <VTextField
-                        v-model="this.response.fName"
+                        v-model="this.response.f_name"
                         autofocus
-                        :value="this.response.fName"
+                        :value="this.response.f_name"
                         label="Last Name"
                         type="text"
                     />
                 </VCol>
                 <VCol cols="6">
                     <VTextField
-                        v-model="this.response.lName"
+                        v-model="this.response.l_name"
                         autofocus
-                        :value="this.response.lName"
+                        :value="this.response.l_name"
                         label="Last Name"
                         type="text"
                     />
@@ -59,21 +59,20 @@
                 </VCol>
                 <VCol cols="6">
                     <VTextField
-                        v-model="this.response.phoneNumber"
+                        v-model="this.response.phone_number"
                         autofocus
-                        :value="this.response.phoneNumber"
+                        :value="this.response.phone_number"
                         label="Phone Number"
                         type="text"
                     />
                 </VCol>
                 <VCol cols="6">
                     <VSelect
-                        v-model="this.selectedRoles"
+                        v-model="this.selectedRole"
                         autofocus
                         :items="this.roles"
                         item-value="id"
                         item-title="name"
-                        multiple
                         label="Roles"
                         type="text"
                     />
@@ -99,7 +98,7 @@ export default {
         return {
             response: [],
             roles: [],
-            selectedRoles: [],
+            selectedRole: '',
             selectedFile: null,
             imageUrl: '',
             alert: {message: '', type: ''}
@@ -113,7 +112,7 @@ export default {
                     if (this.response.info && this.response.info.profile !== '') {
                         this.imageUrl = this.response.info.profile;
                     }
-                    this.selectedRoles = response.data.user.roles;
+                    this.selectedRole = response.data.user.role_id;
                 })
                 .catch((error) => {
                     console.error(error);
@@ -133,21 +132,20 @@ export default {
         submitForm() {
             const formData = new FormData();
             formData.append('profile_picture', this.selectedFile);
-            formData.append('fName', this.response.fName);
-            formData.append('lName', this.response.lName);
+            formData.append('f_name', this.response.f_name);
+            formData.append('l_name', this.response.l_name);
             formData.append('email', this.response.email);
-            formData.append('phoneNumber', this.response.phoneNumber);
+            formData.append('phone_number', this.response.phone_number);
             formData.append('id', this.response.id);
-            formData.append('roles', this.selectedRoles);
+            formData.append('role_id', this.selectedRole);
 
-            console.log(formData)
             axios.post('/api/administrator/users/update-profile/' + this.$route.params.id, formData)
                 .then((response) => {
                     this.alert = {message: response.data.message, type: 'success'};
                     this.getUser()
                 })
                 .catch(error => {
-                    const errorMessage = error.response?.data?.message || 'Error uploading profile picture!';
+                    const errorMessage = error.response?.data?.error || 'Error uploading profile picture!';
                     this.alert = {message: errorMessage, type: 'error'};
                 });
         },

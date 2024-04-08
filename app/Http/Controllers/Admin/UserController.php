@@ -26,20 +26,21 @@ class UserController extends Controller
         try {
             $userId = $request->input('id');
 
-            $fName = $request->input('fName');
-            $lName = $request->input('lName');
+            $f_name = $request->input('f_name');
+            $l_name = $request->input('l_name');
             $email = $request->input('email');
-            $phoneNumber = $request->input('phoneNumber');
-            $roles = explode(',', $request->input('roles'));
+            $phone_number = is_numeric($request->input('phone_number')) ? $request->input('phone_number') : '';
+            $role = $request->input('role_id');
 
             $user = User::find($userId);
-            $user->fName = $fName;
-            $user->lName = $lName;
+            $user->f_name = $f_name;
+            $user->l_name = $l_name;
             $user->email = $email;
-            $user->phoneNumber = $phoneNumber;
-            $user->roles()->sync($roles);
+            $user->phone_number = $phone_number;
+            $user->role_id = $role;
             $user->save();
-            $upload_id = (new FileController())->upload($request, $user->id, 'users', $user->id, 'files/profile/', 'image');
+
+            (new FileController())->upload($request, $user->id, 'users', $user->id, 'storage/profile_pictures/user_' . $userId . '/', 'image');
 //            if ($request->hasFile('profile_picture')) {
 //                $file = $request->file('profile_picture');
 //                $dateUploaded = now()->format('Y-m-d_H-i-s');
@@ -59,9 +60,9 @@ class UserController extends Controller
 //                $userInfo->save();
 //                return response()->json(['path' => $fullPath]);
 //            }
-            return json_encode(['message'=>trans('global.success_attempt')]);
+            return json_encode(['message' => trans('global.success_attempt')]);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'An error occurred while updating profile.'], 500);
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
