@@ -7,6 +7,7 @@ use App\Models\UserAccess;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 
 class CheckAccess
@@ -30,7 +31,42 @@ class CheckAccess
 
     private function access($request)
     {
-        $current_route = $request->path();
+
+        $routes = Route::getRoutes();
+
+        foreach ($routes as $route) {
+            $route_name = $route->getName();
+            if (!Access::where('route', $route_name)->exists()) {
+                $role_id = $route->getAction('role_id');
+                if ($role_id) {
+                    $title = $route->getAction('title');
+                    $status = $route->getAction('status');
+                    $def_access = $route->getAction('def_access');
+
+                    $access = [
+                        'route' => $route_name,
+                        'role_id' => $role_id,
+                    ];
+
+                    if ($title) $access['title'] = $title;
+                    if ($status != null) $access['status'] = $status;
+                    if ($def_access != null) $access['def_access'] = $def_access;
+
+
+                    Access::create($access);
+                }
+            }
+        }
+
+//        dd(Route::getCurrentRoute()->getAction());
+
+
+//        $parameters = $request->route()->parameters();
+//        $current_route = $request->path();
+//        $route = $request->route()->getName();
+
+        $current_route = $request->route()->getName();
+
         $exist_access = Access::where('route', $current_route)->exists();
         $host = $request->host();
 

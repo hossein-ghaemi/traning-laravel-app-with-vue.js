@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::prefix('api')
-    ->middleware( \App\Http\Middleware\CheckAccess::class)
+    ->middleware( [
+        \App\Http\Middleware\CheckAccess::class,
+    ])
     ->namespace('api')
     ->group(base_path('routes/api.php'));
 

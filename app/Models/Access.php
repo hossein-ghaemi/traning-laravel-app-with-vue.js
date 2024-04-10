@@ -9,6 +9,6 @@ class Access extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['route', 'role_id', 'status','def_access'];
+    protected $fillable = ['route', 'title', 'role_id', 'status','def_access'];
 
 }
