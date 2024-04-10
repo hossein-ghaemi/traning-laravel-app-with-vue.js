@@ -12,7 +12,7 @@ import card from '@images/cards/credit-card-primary.png'
 import paypal from '@images/cards/paypal-error.png'
 import wallet from '@images/cards/wallet-info.png'
 </script>
-
+//add user chart
 <template>
   <VRow>
     <!-- 👉 Congratulations -->

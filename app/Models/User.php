@@ -76,7 +76,7 @@ class User extends Authenticatable
     }
 
     public function getProfileAttribute(){
-        return $this->hasOne(File::class,'relation_id','id')->where('table_relation','users')->orderByDesc('id')->get();
+        return $this->hasOne(File::class,'relation_id','id')->where('table_relation','users')->orderByDesc('id')->first();
     }
 
     public function getAlertsAttribute(){
