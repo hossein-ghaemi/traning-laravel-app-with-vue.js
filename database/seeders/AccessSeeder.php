@@ -13,7 +13,7 @@ class AccessSeeder extends Seeder
     public function run(): void
     {
         \App\Models\Access::insert([
-            ['route' => '/api/administrator/users', 'role_id' => 2],
+            ['route' => 'adminusersuserList', 'role_id' => 2, 'title' => 'Users List'],
         ]);
     }
 }

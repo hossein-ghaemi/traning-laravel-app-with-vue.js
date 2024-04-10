@@ -28,10 +28,19 @@ class UserSeeder extends Seeder
             [
                 'f_name' => fake()->name(),
                 'l_Name' => fake()->name(),
-                'role_id' => 2,
+                'role_id' => 1,
                 'email' => 'amirnazari500@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('amir5000'),
+                'remember_token' => Str::random(10),
+            ],
+            [
+                'f_name' => fake()->name(),
+                'l_Name' => fake()->name(),
+                'role_id' => 2,
+                'email' => 'admin@gmail.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('admin'),
                 'remember_token' => Str::random(10),
             ],
 

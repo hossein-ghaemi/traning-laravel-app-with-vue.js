@@ -29,7 +29,7 @@ class User extends Authenticatable
         'password',
     ];
 
-    protected $appends = ['info', 'profile', 'alerts'];
+    protected $appends = ['info', 'profile', 'alerts', 'role'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -67,6 +67,11 @@ class User extends Authenticatable
     public function getInfoAttribute()
     {
         return $this->hasOne(UserInfo::class, 'id')->select( 'info')->first();
+    }
+
+    public function getRoleAttribute()
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id')->select( 'name')->first();
     }
 
 

@@ -1,5 +1,5 @@
 <template>
-    <VRow>
+    <VRow v-if="response">
         <VCol cols="12">
             <VCard>
                 <VTable class="text-no-wrap text-center">
@@ -8,16 +8,20 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Role</th>
                         <th>Operation</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="user in response" :key="user.id">
                         <td class="w-0">{{ user.id }}</td>
-                        <td>{{ user.f_name }} {{user.l_name}}</td>
+                        <td>{{ user.f_name }} {{ user.l_name }}</td>
                         <td>{{ user.email }}</td>
+                        <td>{{ user.role.name }}</td>
                         <td>
-                            <router-link :to="{ name: 'user.profile', params: { id: user.id } }"><VBtn>Edit</VBtn></router-link>
+                            <router-link :to="{ name: 'user.profile', params: { id: user.id } }">
+                                <VBtn>Edit</VBtn>
+                            </router-link>
                         </td>
                     </tr>
                     </tbody>
@@ -28,6 +32,7 @@
 </template>
 
 <script>
+
 import axios from "axios";
 
 export default {
@@ -44,6 +49,7 @@ export default {
                     this.response = response.data.users;
                 })
                 .catch((error) => {
+                    this.response = 'error';
                     console.error(error);
                 });
         },
