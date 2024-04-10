@@ -8,6 +8,7 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Role</th>
                         <th>Operation</th>
                     </tr>
                     </thead>
@@ -16,6 +17,7 @@
                         <td class="w-0">{{ user.id }}</td>
                         <td>{{ user.f_name }} {{user.l_name}}</td>
                         <td>{{ user.email }}</td>
+                        <td>{{ user.role.name }}</td>
                         <td>
                             <router-link :to="{ name: 'user.profile', params: { id: user.id } }"><VBtn>Edit</VBtn></router-link>
                         </td>
