@@ -32,6 +32,34 @@ class CheckAccess
     private function access($request)
     {
 
+        $routes = Route::getRoutes();
+
+        foreach ($routes as $route) {
+            $route_name = $route->getName();
+            if (!Access::where('route', $route_name)->exists()) {
+                $role_id = $route->getAction('role_id');
+                if ($role_id) {
+                    $title = $route->getAction('title');
+                    $status = $route->getAction('status');
+                    $def_access = $route->getAction('def_access');
+
+                    $access = [
+                        'route' => $route_name,
+                        'role_id' => $role_id,
+                    ];
+
+                    if ($title) $access['title'] = $title;
+                    if ($status != null) $access['status'] = $status;
+                    if ($def_access != null) $access['def_access'] = $def_access;
+
+
+                    Access::create($access);
+                }
+            }
+        }
+
+//        dd(Route::getCurrentRoute()->getAction());
+
 
 //        $parameters = $request->route()->parameters();
 //        $current_route = $request->path();

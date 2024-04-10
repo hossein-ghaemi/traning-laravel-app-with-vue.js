@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('accesses', function (Blueprint $table) {
             $table->id();
-            $table->string('route');
-            $table->string('title');
+            $table->string('route', 40);
+            $table->string('title', 100);
             $table->foreignId('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->boolean('def_access')->default(1);
             $table->boolean('status')->default(1);
