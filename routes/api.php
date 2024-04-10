@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
         });
         Route::prefix('roles')->name('roles')->group(function () {
             Route::get('/get', [\App\Http\Controllers\Admin\RoleController::class, 'getAllRoles'])->name('RoleList');
+
         });
     });
 

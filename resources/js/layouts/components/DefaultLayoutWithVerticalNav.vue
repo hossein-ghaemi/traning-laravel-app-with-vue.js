@@ -91,6 +91,13 @@ const routePrefix = '/dashboard';
           to: routePrefix+'/users',
         }"
             />
+            <VerticalNavLink
+                :item="{
+          title: 'Roles',
+          icon: 'mdi-account-cog-outline',
+          to: routePrefix+'/roles',
+        }"
+            />
 
             <!-- 👉 Pages -->
             <VerticalNavSectionTitle

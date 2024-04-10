@@ -109,8 +109,9 @@ export default {
             axios.get('/api/administrator/users/' + this.$route.params.id)
                 .then((response) => {
                     this.response = response.data.user;
-                    if (this.response.info && this.response.info.profile !== '') {
-                        this.imageUrl = this.response.info.profile;
+                    if (this.response.profile.file_path !== '') {
+                        this.imageUrl = window.location.origin+'/' + this.response.profile.file_path;
+                        console.log(this.imageUrl)
                     }
                     this.selectedRole = response.data.user.role_id;
                 })

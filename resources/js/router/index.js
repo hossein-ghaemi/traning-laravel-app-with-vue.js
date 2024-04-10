@@ -5,10 +5,15 @@ const router = createRouter({
         path: '/dashboard', component: () => import('../layouts/default.vue'), children: [{
             path: '', component: () => import('../pages/dashboard.vue'),
         }, {
-            path: 'users', component: () => import('../pages/users.vue'), children: []
+            path: 'users', component: () => import('../pages/admin/user/users.vue'), children: []
         }, {
             path: '/user/:id/setting',
-            component: () => import('../pages/user-setting.vue'), props: true, name: 'user.profile'
+            component: () => import('../pages/admin/user/user-setting.vue'), props: true, name: 'user.profile'
+        },{
+            path: 'roles', component: () => import('../pages/admin/role/roles.vue'), children: []
+        }, {
+            path: '/role/:id/setting',
+            component: () => import('../pages/admin/role/role-setting.vue'), props: true, name: 'role.setting'
         }, {
             path: 'typography', component: () => import('../pages/typography.vue'),
         }, {
@@ -18,7 +23,7 @@ const router = createRouter({
         }, {
             path: 'tables', component: () => import('../pages/tables.vue'),
         }, {
-            path: 'form-layouts', component: () => import('../pages/form-layouts.vue'),
+            path: 'form-layouts', component: ()  => import('../pages/form-layouts.vue'),
         },],
     }, {
         path: '/', component: () => import('../layouts/blank.vue'), children: [{

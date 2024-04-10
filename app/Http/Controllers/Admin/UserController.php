@@ -39,8 +39,7 @@ class UserController extends Controller
             $user->phone_number = $phone_number;
             $user->role_id = $role;
             $user->save();
-
-            (new FileController())->upload($request, $user->id, 'users', $user->id, 'storage/profile_pictures/user_' . $userId . '/', 'image');
+            (new FileController())->upload($request, $user->id, 'users', $user->id, 'storage/profile_pictures/user_' . $userId . '/', 'image',key: 'profile_picture');
 //            if ($request->hasFile('profile_picture')) {
 //                $file = $request->file('profile_picture');
 //                $dateUploaded = now()->format('Y-m-d_H-i-s');

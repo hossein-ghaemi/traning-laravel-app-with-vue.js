@@ -1,6 +1,6 @@
 <script setup>
 import {useRoute} from 'vue-router'
-import Users from '../views/Users/allUsersList.vue'
+import Roles from '../../../views/Roles/allRolesList.vue'
 const route = useRoute()
 const activeTab = ref(route.params.tab)
 
@@ -50,7 +50,7 @@ const tabs = [
         >
             <!-- Account -->
             <VWindowItem value="account">
-                <Users/>
+                <Roles/>
             </VWindowItem>
 
             <!-- Security -->

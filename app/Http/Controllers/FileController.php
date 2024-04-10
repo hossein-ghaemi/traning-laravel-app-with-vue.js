@@ -32,7 +32,9 @@ class FileController extends Controller
     {
 
         $file = $request->file($key);
+
         if ($file != null) {
+
             $file_name = $file->getClientOriginalName();
             $new_name = rand(100000, 999999) . $file_name;
             $path = $path_save . $new_name;
