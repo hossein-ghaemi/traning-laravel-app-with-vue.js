@@ -14,13 +14,8 @@ class File extends Model
         'file_format',
         'file_path',
         'owner',
-        'table_relation',
+        'relational_table',
         'relation_id',
-        'width',
-        'height',
+        'data'
     ];
-
-    public function info(){
-        return $this->hasMany(FileInfo::class,'id','id');
-    }
 }

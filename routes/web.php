@@ -14,13 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::prefix('api')
-    ->middleware( [
-        \App\Http\Middleware\CheckAccess::class,
-    ])
+   ->name('api.')
     ->namespace('api')
     ->group(base_path('routes/api.php'));
 
 
-Route::get('{any?}', function() {
+Route::get('{any?}', function () {
     return view('application');
 })->where('any', '.*');

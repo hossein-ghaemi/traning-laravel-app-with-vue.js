@@ -141,6 +141,7 @@ export default {
                     remember: false,
                 });
                 localStorage.setItem('token', response.data.token);
+                console.log(localStorage.getItem('token'))
                 alert.value = {message: 'Login successful', type: 'success'};
                 this.$router.push('/');
             } catch (error) {
