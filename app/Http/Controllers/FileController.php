@@ -28,7 +28,7 @@ class FileController extends Controller
         ]);
     }
 
-    public function upload(Request $request, $owner, $table_relation, $relation_id, $path_save, $type = 'all', $key = 'file', $is_fake = false)
+    public function upload(Request $request, $owner, $relational_table, $relation_id, $path_save, $type = 'all', $key = 'file', $is_fake = false)
     {
 
         $file = $request->file($key);
@@ -77,7 +77,7 @@ class FileController extends Controller
                 'file_name' => $file_name,
                 'file_format' => $explode_path[sizeof($explode_path) - 1],
                 'file_path' => $path,
-                'table_relation' => $table_relation,
+                'relational_table' => $relational_table,
                 'relation_id' => $relation_id,
                 'owner' => $owner,
                 'alt' => '',

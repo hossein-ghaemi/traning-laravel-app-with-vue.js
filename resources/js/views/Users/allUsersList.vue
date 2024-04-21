@@ -44,7 +44,7 @@ export default {
     },
     methods: {
         getUsers() {
-            axios.get('/api/administrator/users')
+            axios.get('/api/administrator/users/get')
                 .then((response) => {
                     this.response = response.data.users;
                 })

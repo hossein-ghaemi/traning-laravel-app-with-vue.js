@@ -5,13 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FileController;
 use App\Models\User;
-use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    public function getUserList(Request $request)
+    public function getUserList()
     {
         return json_encode(['users' => User::all()]);
     }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('relation_id')->index();
             $table->integer('width')->nullable();
             $table->integer('height')->nullable();
-            $table->string('table_relation')->index();
+            $table->string('relational_table')->index();
             $table->string('file_name');
             $table->string('file_format');
             $table->string('file_path');

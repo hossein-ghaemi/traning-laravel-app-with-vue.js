@@ -17,9 +17,13 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user(); // Get the authenticated user
-            $token = $user->createToken('auth-login')->token;
-            return response()->json(['token' => $token], 200);
+            $token = $user->createToken('auth-login')->plainTextToken;
+            return response()->json([
+                'token' => $token,
+                'user' => $user // Include user information in the response
+            ], 200);
         }
+
         throw ValidationException::withMessages([
             'email' => [trans('auth.failed')]
         ]);
